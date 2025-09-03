@@ -1,0 +1,4 @@
+# Source: Personal Computer, 2024 MacBook Pro M3 Max, 12-core CPU, 32-core GPU, 36GB RAM
+name: M3_Max
+FLOPs: 7.9 TFLOPs
+mem_bw: 250 GB/s

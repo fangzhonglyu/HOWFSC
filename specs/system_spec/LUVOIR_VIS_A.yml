@@ -1,0 +1,11 @@
+# Source: Computational complexities of image plane algorithms for high contrast imaging in space telescopes
+
+name: LUVOIR_VIS_A
+n_channels: 5
+iwa: 3.5
+owa: 64
+actuator_per_side: 128
+pixels_per_side: 400
+l_d_per_pix: 0.5
+bit_depth: 12
+n_probes: 7

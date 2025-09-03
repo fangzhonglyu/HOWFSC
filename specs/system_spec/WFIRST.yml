@@ -1,0 +1,11 @@
+# Source: Computational complexities of image plane algorithms for high contrast imaging in space telescopes
+
+name: HLC_WFIRST
+n_channels: 7
+iwa: 3
+owa: 9
+actuator_per_side: 48
+pixels_per_side: 386
+l_d_per_pix: 0.5
+bit_depth: 12
+n_probes: 7
