@@ -1,5 +1,6 @@
 from specs.compute_spec.compute_specs import ComputeSpec
 import torch
+import time
 
 def synchronize_device(device):
     """
@@ -53,12 +54,39 @@ class Kernel():
     
     def get_mem_capacity_GB(self):
         return self.mem_capacity / 1e9
+    
+    def setup(self, device):
+        raise NotImplementedError
 
     def run(self, *args, **kwargs):
         raise NotImplementedError
     
-    def sim(self):
-        raise NotImplementedError
+    def sim(self, device, min_time=3.0):
+        cleanup_device(device)
+        inputs = self.setup(device)
+        synchronize_device(device)
+
+        iters = 0
+        elapsed_time = 0.0
+        start_time = time.perf_counter()
+
+        # Warm-up run
+        while elapsed_time < min_time:
+            synchronize_device(device)
+            self.run(*inputs)
+            synchronize_device(device)
+            elapsed_time = time.perf_counter() - start_time
+            iters += 1
+
+        # Actual timing run
+        synchronize_device(device)
+        start_time = time.perf_counter()
+        for _ in range(iters):
+            self.run(*inputs)
+        synchronize_device(device)
+        elapsed_time = time.perf_counter() - start_time
+        
+        return elapsed_time / iters
     
     def perf(self, compute: ComputeSpec):
         FLOPs_time = self.FLOPs / compute.FLOPs
