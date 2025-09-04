@@ -18,23 +18,17 @@ class EFC(Kernel):
         self.N = system.n_actuators
 
         self.FLOPs = 2 * self.M * self.N + 2 * self.M * self.N
-        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.M * self.M + self.M * self.N)
+        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.N * self.N + self.M * self.N)
         self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N)
 
-    def run(self, M, JT, E):
+    def run(self, JT, M, E):
         JTE = torch.matmul(JT, E)
         NMJTE = -torch.matmul(M, JTE)
         return NMJTE
+    
+    def setup(self, device):
+        JT = torch.randn((self.N, self.M), dtype=torch.float32 if self.datatype == 'fp32' else torch.float64, device=device)
+        M = torch.randn((self.N, self.N), dtype=torch.float32 if self.datatype == 'fp32' else torch.float64, device=device)
+        E = torch.randn((self.M, 1), dtype=torch.float32 if self.datatype == 'fp32' else torch.float64, device=device)
 
-    def sim(self, device):
-        cleanup_device(device)
-        JT = torch.randn((self.M, self.N), dtype=torch.float32 if self.datatype == 'fp32' else torch.float64, device=device)
-        M = torch.randn((self.M, self.M), dtype=torch.float32 if self.datatype == 'fp32' else torch.float64, device=device)
-        E = torch.randn((self.N, 1), dtype=torch.float32 if self.datatype == 'fp32' else torch.float64, device=device)
-        start_time = time.perf_counter()
-        for _ in range(ITER):
-            synchronize_device(device)
-            self.run(M, JT, E)
-            synchronize_device(device)
-        elapsed_time = time.perf_counter() - start_time
-        return elapsed_time / ITER
+        return JT, M, E

@@ -1,0 +1,4 @@
+# Source: Personal Computer, RTX 5090, 24-core CPU, 48-core GPU, 64GB RAM
+name: RTX_5090
+FLOPs: 66.1 TFLOPs
+mem_bw: 1600 GB/s
