@@ -30,5 +30,6 @@ class ComputeSpec():
         with open(self.spec_yml, 'r') as file:
             self.spec = yaml.safe_load(file)
             self.name = self.spec['name']
-            self.FLOPs = ComputeSpec.parse_flops(self.spec['FLOPs'])
+            self.fp32_FLOPs = ComputeSpec.parse_flops(self.spec['fp32_FLOPs'])
+            self.fp64_FLOPs = ComputeSpec.parse_flops(self.spec.get('fp64_FLOPs', '0 GFLOPs'))
             self.mem_bw = ComputeSpec.parse_mem_bw(self.spec['mem_bw'])

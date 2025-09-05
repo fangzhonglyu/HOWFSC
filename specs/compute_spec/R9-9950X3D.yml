@@ -1,4 +1,4 @@
 # Source: Personal Computer, R9 9950X3D, 16-core CPU, 32-core GPU, 96GB RAM
 name: R9_9950X3D
-FLOPs: 1.84 TFLOPs
+fp32_FLOPs: 1.84 TFLOPs
 mem_bw: 47.49 GB/s

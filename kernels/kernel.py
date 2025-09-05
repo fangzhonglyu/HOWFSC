@@ -32,6 +32,22 @@ def cleanup_device(device):
     else:
         pass  # No cleanup needed for CPU
 
+
+def rand_tensor(shape, datatype, device, name=""):
+    """
+    Allocates a tensor on the specified device with the given shape and datatype.
+    """
+    if datatype == 'fp32':
+        tensor =  torch.randn(shape, dtype=torch.float32, device=device)
+    else:
+        tensor = torch.randn(shape, dtype=torch.float64, device=device)
+
+    if name:
+        print(f"  Allocated tensor '{name}' of shape {shape}, size {tensor.element_size() * tensor.nelement() / 1e9} GB, datatype: {tensor.dtype}, device: {device}")
+    else:
+        print(f"  Allocated tensor of shape {shape}, size {tensor.element_size() * tensor.nelement() / 1e9} GB, datatype: {tensor.dtype}, device: {device}")
+    return tensor
+
 class Kernel():
 
     def __init__(self, name: str, datatype: str, *args, **kwargs):
@@ -89,10 +105,11 @@ class Kernel():
         return elapsed_time / iters
     
     def perf(self, compute: ComputeSpec):
-        FLOPs_time = self.FLOPs / compute.FLOPs
+        FLOPs_time = self.FLOPs / (compute.fp32_FLOPs if self.datatype == 'fp32' else compute.fp64_FLOPs)
         mem_time = self.mem_access / compute.mem_bw
         bounding_factor = 'compute' if FLOPs_time > mem_time else 'memory'
         time = max(FLOPs_time, mem_time)
+        
         return {
             'time': time,
             'bounding_factor': bounding_factor,
