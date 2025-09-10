@@ -3,6 +3,16 @@ from specs.system_spec.system_spec import SystemSpec
 import torch
 
 class Gain(Kernel):
+    """
+        Kernel for Precomputing Gain Matrix -> MJT = INV(J.T @ J + α*I) @ J.T
+
+        Args:
+            J (torch.Tensor): Jacobian matrix of shape (M, N)
+            alpha (float): Regularization parameter
+        Params:
+            M (int): Total Degree of Freedom = 2 * N_pixel * N_channels
+            N (int): Number of DM Actuators 
+    """
 
     def __init__(self, data_type, system: SystemSpec):
         super().__init__('Gain', data_type)
