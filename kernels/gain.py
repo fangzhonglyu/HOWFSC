@@ -27,7 +27,7 @@ class Gain(Kernel):
     def run(self, J, alpha):
         JTJ = torch.matmul(J.T, J)
         JTJ.diagonal().add_(alpha)
-        return torch.linalg.solve(JTJ, J.T) # Equivalent to (J.T @ J + α*I)^(-1) @ J.T
+        return torch.linalg.solve(JTJ, J.T)
     
     def setup(self, device):
         J = rand_tensor((self.M, self.N), self.datatype, device, name="J")
