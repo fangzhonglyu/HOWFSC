@@ -1,6 +1,7 @@
 from specs.compute_spec.compute_specs import ComputeSpec
 import torch
 import time
+import os
 
 def synchronize_device(device):
     """
@@ -41,6 +42,21 @@ def rand_tensor(shape, datatype, device, name=""):
         tensor =  torch.randn(shape, dtype=torch.float32, device=device)
     else:
         tensor = torch.randn(shape, dtype=torch.float64, device=device)
+
+    if name:
+        print(f"  Allocated tensor '{name}' of shape {shape}, size {tensor.element_size() * tensor.nelement() / 1e9} GB, datatype: {tensor.dtype}, device: {device}")
+    else:
+        print(f"  Allocated tensor of shape {shape}, size {tensor.element_size() * tensor.nelement() / 1e9} GB, datatype: {tensor.dtype}, device: {device}")
+    return tensor
+
+def one_tensor(shape, datatype, device, name=""):
+    """
+    Allocates a tensor filled with ones on the specified device with the given shape and datatype.
+    """
+    if datatype == 'fp32':
+        tensor =  torch.ones(shape, dtype=torch.float32, device=device)
+    else:
+        tensor = torch.ones(shape, dtype=torch.float64, device=device)
 
     if name:
         print(f"  Allocated tensor '{name}' of shape {shape}, size {tensor.element_size() * tensor.nelement() / 1e9} GB, datatype: {tensor.dtype}, device: {device}")
@@ -118,3 +134,34 @@ class Kernel():
             'arithmetic_intensity': self.compute_arithmetic_intensity(),
             'mem_cap_GB': self.mem_capacity / 1e9,
         }
+
+    def get_mlir(self):
+        try:
+            from torch_mlir.fx import export_and_import  # present in current dev wheels
+        except ImportError:
+            print("torch_mlir is not installed. Cannot get MLIR.")
+            return
+
+        class KernelModule(torch.nn.Module):
+            def __init__(self, kernel_instance):
+                super().__init__()
+                self.kernel_instance = kernel_instance
+
+            def forward(self, *args):
+                return self.kernel_instance.run(*args)
+
+        inputs = self.setup(torch.device('cpu'))
+        m = KernelModule(self).eval()
+        mlir_torch = export_and_import(m, *inputs, output_type="torch")
+
+        file_dir = os.path.dirname(os.path.abspath(__file__))
+        torch_mlir_file = os.path.join(file_dir,"IR",f"{self.name}_torch.mlir")
+        with open(torch_mlir_file, 'w') as f:
+            f.write(str(mlir_torch))
+        print(f"Saved Torch MLIR to {torch_mlir_file}")
+
+        mlir_linalg = export_and_import(m, *inputs, output_type="linalg-on-tensors")
+        linalg_mlir_file = os.path.join(file_dir,"IR",f"{self.name}_linalg.mlir")
+        with open(linalg_mlir_file, 'w') as f:
+            mlir_linalg.operation.print(file=f, large_elements_limit=10)
+        print(f"Saved Linalg MLIR to {linalg_mlir_file}")
