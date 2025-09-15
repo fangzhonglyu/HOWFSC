@@ -1,0 +1,5 @@
+# Source: Personal Computer, R9 9950X3D, 16-core CPU, 32-core GPU, 96GB RAM
+name: DUAL_EPYC_9575F
+fp32_FLOPs: 9 TFLOPs
+fp64_FLOPs: 3 TFLOPs
+mem_bw: 430 GB/s

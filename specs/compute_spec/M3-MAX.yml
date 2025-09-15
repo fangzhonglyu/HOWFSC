@@ -1,0 +1,5 @@
+# Source: Personal Computer, 2024 MacBook Pro M3 Max, 12-core CPU, 32-core GPU, 36GB RAM
+name: M3_Max
+fp32_FLOPs: 8 TFLOPs
+fp64_FLOPs: 0.73 TFLOPs # No MPS support for fp64, Mem also not at full speed when using cpu only
+mem_bw: 260 GB/s
