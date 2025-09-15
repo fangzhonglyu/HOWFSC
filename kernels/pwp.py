@@ -31,7 +31,7 @@ class PWP(Kernel):
         
         self.mem_access = (4 if self.datatype == 'fp32' else 8) * (
             self.N_pix_channels * self.N_probe * 3 + 
-            self.N_probe * 3 * self.N_pix_channels * 4
+            self.N_probe * 3 * self.N_pix_channels
         )
 
         self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (
