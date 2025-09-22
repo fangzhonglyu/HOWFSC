@@ -155,10 +155,6 @@ class Kernel():
         mlir_torch = export_and_import(m, *inputs, output_type="torch")
 
         file_dir = os.path.dirname(os.path.abspath(__file__))
-        torch_mlir_file = os.path.join(file_dir,"IR",f"{self.name}_torch.mlir")
-        with open(torch_mlir_file, 'w') as f:
-            f.write(str(mlir_torch))
-        print(f"Saved Torch MLIR to {torch_mlir_file}")
 
         mlir_linalg = export_and_import(m, *inputs, output_type="linalg-on-tensors")
         linalg_mlir_file = os.path.join(file_dir,"IR",f"{self.name}_linalg.mlir")
