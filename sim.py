@@ -20,7 +20,8 @@ def sim(system: SystemSpec, compute:ComputeSpec, Kernel, device='cpu', datatype=
     return f"{system.name}, {compute.name}, {k.name}, {datatype}, {perf['arithmetic_intensity']}, {perf['time']}, {run_time}, {perf['bounding_factor']}\n"
 
 
-res_dual_9575f = sim(SystemSpec('specs/system_spec/LUVOIR_VIS_A.yml'), ComputeSpec('specs/compute_spec/Dual-EPYC-9575F.yml'), Kernel=PWP, device=torch.device('cpu'), datatype='fp32')
+# res_dual_9575f = sim(SystemSpec('specs/system_spec/LUVOIR_VIS_A.yml'), ComputeSpec('specs/compute_spec/Dual-EPYC-9575F.yml'), Kernel=PWP, device=torch.device('cpu'), datatype='fp32')
+rtx_5090 = sim(SystemSpec('specs/system_spec/WFIRST.yml'), ComputeSpec('specs/compute_spec/RTX5090.yml'), Kernel=EFC, device=torch.device('cuda'), datatype='fp32')
 
 # Run only if ubuntu:
 # if platform.system() == 'Linux':
