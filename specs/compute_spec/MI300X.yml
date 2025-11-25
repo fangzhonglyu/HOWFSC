@@ -1,0 +1,4 @@
+name: MI300X
+fp32_FLOPs: 163.4 TFLOPs
+fp64_FLOPs: 163.4 TFLOPs
+mem_bw: 5300 GB/s

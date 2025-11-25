@@ -1,0 +1,5 @@
+# Source: Derived from ARM & Teledyne Datasheets
+name: LX2160A
+fp32_FLOPs: 0.0352 TFLOPs
+fp64_FLOPs: 0.0352 TFLOPs
+mem_bw: 57.6 GB/s

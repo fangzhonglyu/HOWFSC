@@ -1,0 +1,5 @@
+# Source: Nvidia Data Sheet
+name: H100
+fp32_FLOPs: 67 TFLOPs
+fp64_FLOPs: 67 TFLOPs
+mem_bw: 3350 GB/s

@@ -1,0 +1,5 @@
+# Source: Jetson Orin NX Data Sheet
+name: Orin NX
+fp32_FLOPs: 6.7 TFLOPs
+fp64_FLOPs: 6.7 TFLOPs # No MPS support for fp64, Mem also not at full speed when using cpu only
+mem_bw: 102 GB/s

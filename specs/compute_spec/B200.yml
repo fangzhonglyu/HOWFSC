@@ -1,0 +1,4 @@
+name: B200
+fp32_FLOPs: 75 TFLOPs
+fp64_FLOPs: 37 TFLOPs
+mem_bw: 7700 GB/s

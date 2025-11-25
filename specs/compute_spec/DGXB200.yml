@@ -1,0 +1,4 @@
+name: DGX B200
+fp32_FLOPs: 600 TFLOPs
+fp64_FLOPs: 296 TFLOPs # No MPS support for fp64, Mem also not at full speed when using cpu only
+mem_bw: 62000 GB/s

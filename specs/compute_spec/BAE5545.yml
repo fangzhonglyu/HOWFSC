@@ -1,0 +1,5 @@
+# Source: Nvidia Data Sheet
+name: BAE5545
+fp32_FLOPs: 0.0037 TFLOPs
+fp64_FLOPs: 0.0037 TFLOPs
+mem_bw: 6.375 GB/s
