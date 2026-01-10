@@ -15,13 +15,13 @@ class Gain(Kernel):
     """
 
     def __init__(self, data_type, system: SystemSpec):
-        super().__init__('Gain', data_type)
+        super().__init__('Precompute Gain', data_type)
 
         self.M = system.dof
         self.N = system.n_actuators
 
-        self.FLOPs = 4 * self.M**2 * self.N + 1/3 * self.M**3
-        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.N * self.M + self.M * self.M)
+        self.FLOPs = self.M * self.N**2 + (2*self.N**3)/3
+        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.N * self.M + self.N * self.N)
         self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N)
 
     def run(self, J, alpha):

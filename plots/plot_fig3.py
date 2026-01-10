@@ -43,9 +43,11 @@ def plot_roofline(kernels: list[Kernel], compute_spec: ComputeSpec):
 
     # Plot each workload
     colors = plt.rcParams['axes.prop_cycle'].by_key()['color']
+    markers = ['o', 's', '^', 'D', 'v', '<', '>', 'p', '*', 'h']
     for i, (oi, name) in enumerate(zip(ois, names)):
         perf = min(bandwidth * oi, FLOPs)
         plt.scatter(oi, perf, color=colors[i % len(colors)], s=80,
+                    marker=markers[i % len(markers)],
                     label=f'{name}(OI={oi:.2f})')
 
     # Annotations & styling

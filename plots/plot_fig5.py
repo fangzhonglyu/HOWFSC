@@ -21,13 +21,15 @@ def plot_perf(compute_specs: list[ComputeSpec], kernels: list[Kernel]=None):
                      textcoords="offset points", xytext=(0,10), ha='center', fontsize=13)
     
     colors = color_palette("Set2", n_colors=len(kernels or []))
+    linestyles = ['--', ':', '-.']  # Different line styles for each kernel
 
-    for kernel, color in zip(kernels or [], colors):
+    for i, (kernel, color) in enumerate(zip(kernels or [], colors)):
         # plot kernel operational intensity
         oi = kernel.perf(compute_specs[0])['arithmetic_intensity']
         # Slanted Line
         nbytes = np.logspace(0, 6, 200)
-        plt.loglog(nbytes * oi, nbytes, '--', label=f'{kernel.name} (OI={oi:.2f})', alpha=1, color=color)
+        linestyle = linestyles[i % len(linestyles)]
+        plt.loglog(nbytes * oi, nbytes, linestyle, label=f'{kernel.name} (OI={oi:.2f})', alpha=1, color=color)
         # plt.plot([1, 1e6*oi], [1, 1e6], '--', label=f'{kernel.name} (OI={oi:.2f})')
 
 
@@ -59,11 +61,12 @@ if __name__ == '__main__':
 
     system_spec = SystemSpec('specs/system_spec/LUVOIR_VIS_A.yml')
 
-    pwp_kernel = PWP('fp32', system_spec)
-    kf_probing_kernel = EKF('fp32', system_spec)
-    efc_kernel = EFC('fp32', system_spec)
+    gain_kernel = Gain('fp64', system_spec)
+    pwp_kernel = PWP('fp64', system_spec)
+    kf_probing_kernel = EKF('fp64', system_spec)
+    efc_kernel = EFC('fp64', system_spec)
 
-    kernels = [efc_kernel, pwp_kernel, kf_probing_kernel]
+    kernels = [efc_kernel, kf_probing_kernel, pwp_kernel]
 
     for filename in os.listdir(spec_dir):
         if filename.endswith('.yml'):

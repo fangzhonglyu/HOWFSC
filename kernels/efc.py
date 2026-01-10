@@ -10,9 +10,9 @@ class EFC(Kernel):
         self.M = system.dof
         self.N = system.n_actuators
 
-        self.FLOPs = 2 * self.M * self.N + 2 * self.M * self.N
-        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.N * self.N + self.M * self.N)
-        self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N)
+        self.FLOPs = 2 * self.M * self.N + 2 * self.N * self.N
+        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.M * (self.M + self.N))
+        self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N + self.N * self.N)
 
     def run(self, JT):
         return 

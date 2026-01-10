@@ -2,6 +2,8 @@ from kernels.kernel import Kernel, rand_tensor
 from specs.system_spec.system_spec import SystemSpec
 import torch
 
+KFF = 35
+
 class EKF(Kernel):
     """
         Kernel for single pixel EKF
@@ -13,14 +15,22 @@ class EKF(Kernel):
             M (int): Total Degree of Freedom = 2 * N_pixel * N_channels
             N (int): Number of DM Actuators 
     """
+    
+
 
     def __init__(self, data_type, system: SystemSpec):
         super().__init__('EKF', data_type)
 
-        self.pixels = system.n_pixels
-        self.FLOPs = 35 * self.pixels
-        self.mem_access = (4 if self.datatype == 'fp32' else 8) * self.pixels * 7
-        self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * self.pixels * 7
+
+
+        self.M = system.dof
+        self.N = system.n_actuators
+
+        self.FLOPs = KFF * self.M + 2 * self.M * self.N
+        print("EKF FLOPs:", self.FLOPs)
+        self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.M * KFF + self.M * self.N)
+        print("EKF mem_access:", self.mem_access)
+        self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * 7 + self.M)
 
     def run(self, J, alpha):
         JTJ = torch.matmul(J.T, J)

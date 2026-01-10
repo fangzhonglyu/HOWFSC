@@ -1,19 +1,19 @@
 SRAM = """
 SRAM Solution	Power (W)	Area (mm2)
-62.99		
-SRAM	28.49	22184.45902
+95.14		
+SRAM	49.04	22184.45902
 Interconnect	6.31E-02	72.8
-EFC Compute	9.50	9.82E+00
+EFC Compute	21.09	21.79809964
 GP Compute	25.00	1600
 """
 
 HBM = """
 HBM Solution	Power (W)	Area (mm2)
-454.09		
-HBM	3.91E+02	1573
-HBM PHY	2.84E+01	114.816
-Interconnect	6.31E-02	72.8
-EFC Compute	9.50	9.82E+00
+938.97		
+HBM	8.33E+02	3267
+HBM PHY	6.05E+01	238.464
+Interconnect	5.26E-02	35.1
+EFC Compute	20.71	2.14E+01
 GP Compute	25.00	1600
 """
 
