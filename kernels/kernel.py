@@ -96,6 +96,7 @@ class Kernel():
     def sim(self, device, min_time=3.0):
         cleanup_device(device)
         inputs = self.setup(device)
+        print(f"Input tensors allocated on {device}. Starting simulation...")
         synchronize_device(device)
 
         iters = 0

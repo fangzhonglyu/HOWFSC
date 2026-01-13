@@ -7,7 +7,14 @@ import time
 import torch
 import platform
 
+
+
 def sim(system: SystemSpec, compute:ComputeSpec, Kernel, device='cpu', datatype='fp32'):
+    if device.type == 'cpu':
+        print("intra-op threads:", torch.get_num_threads())
+        print("interop threads:", torch.get_num_interop_threads())
+
+
     print(f"Running simulation for {system.name}")
     k = Kernel(datatype, system)
     perf = k.perf(compute)
@@ -19,7 +26,7 @@ def sim(system: SystemSpec, compute:ComputeSpec, Kernel, device='cpu', datatype=
 
     return f"{system.name}, {compute.name}, {k.name}, {datatype}, {perf['arithmetic_intensity']}, {perf['time']}, {run_time}, {perf['bounding_factor']}\n"
 
-res_dual_9575f = sim(SystemSpec('specs/system_spec/WFIRST.yml'), ComputeSpec('specs/compute_spec/M3-MAX.yml'), Kernel=Gain, device=torch.device('mps'), datatype='fp32')
+res_dual_9575f = sim(SystemSpec('specs/system_spec/LUVOIR_VIS_A.yml'), ComputeSpec('specs/compute_spec/B200.yml'), Kernel=EFC, device=torch.device('cuda'), datatype='fp64')
 
 # Run only if ubuntu:
 # if platform.system() == 'Linux':

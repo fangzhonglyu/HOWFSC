@@ -22,13 +22,14 @@ class EFC(Kernel):
 
         self.FLOPs = 2 * self.M * self.N
         self.mem_access = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N)
-        self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N)
+        self.mem_capacity = (4 if self.datatype == 'fp32' else 8) * (self.M * self.N + self.N * self.N)
 
-    def run(self, MJT, E):
-        return torch.matmul(MJT, E)
+    def run(self, M, JT, E, out):
+        return torch.matmul(M,torch.matmul(JT, E))
 
     def setup(self, device):
-        MJT = rand_tensor((self.N, self.M), self.datatype, device, name="MJT")
+        M = rand_tensor((self.N, self.N), self.datatype, device, name="M")
+        JT = rand_tensor((self.N, self.M), self.datatype, device, name="JT")
         E = rand_tensor((self.M, 1), self.datatype, device, name="E")
         out = rand_tensor((self.N, 1), self.datatype, device, name="out")
-        return MJT, E
+        return M, JT, E, out
