@@ -1,3 +1,0 @@
-system, compute, kernel, datatype, arithmetic_intensity, roofline_time, actual_time, bounding_factor
-HLC_WFIRST, RTX_5090, EFC, fp32, 0.7776344086021505, 0.0001472480625, 0.00016069453336422916, memory
-HLC_WFIRST, R9_9950X3D, EFC, fp32, 0.7776344086021505, 0.004960979153506001, 0.004529462599397864, memory
