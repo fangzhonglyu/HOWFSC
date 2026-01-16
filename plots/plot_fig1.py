@@ -62,9 +62,10 @@ for txt in labels:
     ])
 
 cbar = plt.colorbar(cp)
+cbar.set_label('Frequency (Hz)')
 cbar.ax.yaxis.label.set_size(16)
 plt.xlabel('Data Rate (MB/s)',fontsize=16)
-plt.ylabel('Latency (ms)',fontsize=16)
+plt.ylabel('Link Latency (ms)',fontsize=16)
 plt.yscale('log')
 plt.xscale('log')
 plt.title('a) Control Freq Limit vs Link Data Rate/Latency', fontsize=18, pad=20)

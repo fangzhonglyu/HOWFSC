@@ -10,11 +10,6 @@ import platform
 
 
 def sim(system: SystemSpec, compute:ComputeSpec, Kernel, device='cpu', datatype='fp32'):
-    if device.type == 'cpu':
-        print("intra-op threads:", torch.get_num_threads())
-        print("interop threads:", torch.get_num_interop_threads())
-
-
     print(f"Running simulation for {system.name}")
     k = Kernel(datatype, system)
     perf = k.perf(compute)
