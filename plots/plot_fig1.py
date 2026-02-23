@@ -70,7 +70,7 @@ plt.yscale('log')
 plt.xscale('log')
 plt.title('a) Control Freq Limit vs Link Data Rate/Latency', fontsize=18, pad=20)
 plt.tight_layout()
-plt.savefig('plots/generated/fig1.svg', dpi=300)
+plt.savefig('plots/generated/fig1.pdf', dpi=300)
 
 
 # # =======================================

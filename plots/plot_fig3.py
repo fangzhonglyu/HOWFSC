@@ -59,7 +59,7 @@ def plot_roofline(kernels: list[Kernel], compute_spec: ComputeSpec):
     plt.legend(loc='upper left', fontsize=12)
     plt.tight_layout()
 
-    plt.savefig('plots/generated/fig3.svg', dpi=300)
+    plt.savefig('plots/generated/fig3.pdf', dpi=300)
 
 
 def plot_example_roofline():
@@ -102,7 +102,7 @@ def plot_example_roofline():
     plt.legend(loc='upper left', fontsize=12)
     plt.tight_layout()
 
-    plt.savefig('plots/generated/fig3.svg', dpi=300)
+    plt.savefig('plots/generated/fig3.pdf', dpi=300)
 
 if __name__ == '__main__':
     from kernels.pwp import PWP
@@ -175,7 +175,7 @@ if __name__ == '__main__':
 
 #     plt.legend(loc='lower right', fontsize=9)
 
-#     plt.savefig('plots/generated/fig3.svg', dpi=300)
+#     plt.savefig('plots/generated/fig3.pdf', dpi=300)
 
 # if __name__ == '__main__':
 #     # === Replace these with your workloads ===

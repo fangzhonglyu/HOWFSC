@@ -45,7 +45,7 @@ plt.title("b) Control Freq Limit vs Transfer Distance", fontsize=18, pad=20)
 # plt.grid(True, which='both', linestyle='--', alpha=0.5)
 plt.legend(title="Data Rate", fontsize=12, title_fontsize=12, loc='upper right')
 plt.tight_layout()
-plt.savefig('plots/generated/fig2.svg', dpi=300)
+plt.savefig('plots/generated/fig2.pdf', dpi=300)
 
 # ISO_LEVELS = [0.1, 1, 10, 100]
 # ISO_LABELS = { i : f'{i} Hz' for i in ISO_LEVELS }
@@ -87,7 +87,7 @@ plt.savefig('plots/generated/fig2.svg', dpi=300)
 # plt.xscale('log')
 # plt.title('Control Freq. vs Link Bandwidth & Latency', fontsize=18, pad=20)
 # plt.tight_layout()
-# plt.savefig('plots/generated/transfer.svg', dpi=300)
+# plt.savefig('plots/generated/transfer.pdf', dpi=300)
 
 
 # # =======================================

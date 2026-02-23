@@ -30,7 +30,7 @@ def plot_perf(compute_specs: list[ComputeSpec]):
     plt.title('Modern Hardware Landscape',fontsize=18)
     plt.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig('plots/generated/fig4.svg', dpi=300)
+    plt.savefig('plots/generated/fig4.pdf', dpi=300)
 
 import os
 
@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
 #     plt.legend(loc='lower right', fontsize=9)
 
-#     plt.savefig('plots/generated/fig3.svg', dpi=300)
+#     plt.savefig('plots/generated/fig3.pdf', dpi=300)
 
 # if __name__ == '__main__':
 #     # === Replace these with your workloads ===

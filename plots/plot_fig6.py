@@ -61,7 +61,7 @@ def plot_perf(compute_specs: list[ComputeSpec], kernels: list[Kernel]=None):
     plt.title('b) EFC Compute Requirement',fontsize=18)
     plt.grid(alpha=0.3)
     plt.tight_layout()
-    plt.savefig('plots/generated/fig6.svg', dpi=300)
+    plt.savefig('plots/generated/fig6.pdf', dpi=300)
 
 import os
 
@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
 #     plt.legend(loc='lower right', fontsize=9)
 
-#     plt.savefig('plots/generated/fig3.svg', dpi=300)
+#     plt.savefig('plots/generated/fig3.pdf', dpi=300)
 
 # if __name__ == '__main__':
 #     # === Replace these with your workloads ===
